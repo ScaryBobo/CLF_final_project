@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+      <button mat-icon-button>
+        <mat-icon (click)="sidenav.toggle();"> menu</mat-icon>
+      </button>
+      <h1> Menu</h1>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav opened="true" mode="side">
+      <mat-nav-list>
+          <h2>User</h2>
+          <mat-list-item (click)="login()"> User Login</mat-list-item>
+          <mat-list-item (click)="createUser()"> Create User Account</mat-list-item>
+      </mat-nav-list>
+
+      <mat-nav-list>
+        <h2>Questionaire</h2>
+        <mat-list-item (click)="myQuest()"> My Questionaires</mat-list-item>
+        <mat-list-item (click)="createQuest()"> Create a Questionaire</mat-list-item>
+        <mat-list-item (click)="participateQuest()"> Fill a Questionaire</mat-list-item>
+    </mat-nav-list>
+      
+      
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content-body">
+        <router-outlet> </router-outlet>
+      </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

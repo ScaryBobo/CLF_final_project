@@ -14,13 +14,14 @@ import { QuestionairesCreateComponent } from './questionaires-create/questionair
 import { QuestionairesParticipateComponent } from './questionaires-participate/questionaires-participate.component';
 import { QuestionairesSavedComponent } from './questionaires-saved/questionaires-saved.component';
 import { UserService } from './user.service';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
 
 const appRoutes : Routes = [
   {path: '', component: UserLoginComponent},
   {path: 'usercreate', component: UserCreateComponent},
-  {path: 'myquest/:email', component: QuestionairesSavedComponent},
-  {path: 'questcreate/:email', component: QuestionairesCreateComponent},
-  {path: 'questparticipate/:email', component: QuestionairesParticipateComponent},
+  {path: 'myquest/:userId', component: QuestionairesSavedComponent},
+  {path: 'questcreate/:userId', component: QuestionairesCreateComponent},
+  {path: 'questparticipate/:userId', component: QuestionairesParticipateComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -35,7 +36,8 @@ const appRoutes : Routes = [
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, MaterialModule, HttpClientModule, ReactiveFormsModule, FormsModule, RouterModule.forRoot(appRoutes, {useHash: true})
+    BrowserAnimationsModule, MaterialModule, HttpClientModule, ReactiveFormsModule, FormsModule, 
+    RouterModule.forRoot(appRoutes, {useHash: true})
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  sessEmail !: string
+  sessId !: string
 
   // Using promises
   addNewUserToDatabase (user : User){

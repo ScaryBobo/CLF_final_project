@@ -1,1 +1,17 @@
-<p>questionaires-create works!</p>
+
+<form [formGroup]="form" (ngSubmit)="doUpload()">
+  
+  <input type="file" placeholder="Your email please" formControlName="file" #toUpload >
+
+  <div class="space-around" style="margin-top: 10px;">
+    <button type="button" mat-raised-button color="accent">
+      Cancel
+      <mat-icon fontIcon="cancel"></mat-icon>
+    </button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">
+      Upload
+    </button>
+
+  </div>
+</form>
+

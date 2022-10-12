@@ -16,7 +16,7 @@ public class UserService {
 
     public boolean createUser (User user){
         return userRepo.insertNewUser(
-                generateUserId(),  user.getPassword(), user.getEmail());
+                user.getUserId(),  user.getPassword(), user.getEmail());
     }
 
     public Optional<String> checkIfEmailExists (User user){ return userRepo.getUserRecordByEmail(user.getEmail()); }
@@ -24,6 +24,11 @@ public class UserService {
     public boolean authenticateLogin (User user) {
         return userRepo.verifyUser(user.getEmail(), user.getPassword()).isPresent();
     }
-    private String generateUserId (){return UUID.randomUUID().toString().substring(0,8); }
+
+    public Optional<User> getUser (User user){
+        return userRepo.getUserIdByLogin(user.getEmail(), user.getPassword());
+    }
+
+    public String generateUserId (){return UUID.randomUUID().toString().substring(0,8); }
 
 }

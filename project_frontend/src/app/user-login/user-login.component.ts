@@ -31,10 +31,10 @@ export class UserLoginComponent implements OnInit {
     let user : User = this.loginForm.value as User;
     this.userSvc.authenticate (user).subscribe(data => {
       alert ("Login Successfully!");
-      console.log("return>>>> : " , data["email"]);
-      this.userSvc.sessEmail = data["email"];
-      console.log(">>> session email ",this.userSvc.sessEmail);
-      this.router.navigate(['/myquest', this.userSvc.sessEmail]);
+      console.log("return>>>> : " , data);
+      this.userSvc.sessId = data["userId"];
+      console.log(">>> session id ",this.userSvc.sessId);
+      this.router.navigate(['/myquest', this.userSvc.sessId]);
     }, error => {
       alert ("Email or password is incorrect");
     })

@@ -30,6 +30,7 @@ public class LoginRestController {
         Optional<String> opt = userSvc.checkIfEmailExists(user);
 
         if (opt.isEmpty()){
+            user.setUserId(userSvc.generateUserId());
             userSvc.createUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(user);
         }
@@ -44,7 +45,8 @@ public class LoginRestController {
         User user = gson.fromJson(payload, User.class);
         boolean authUser = userSvc.authenticateLogin(user);
         if (authUser){
-            return ResponseEntity.status(HttpStatus.OK).body(user);
+            Optional <User> opt = userSvc.getUser(user);
+            return ResponseEntity.status(HttpStatus.OK).body(opt.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }

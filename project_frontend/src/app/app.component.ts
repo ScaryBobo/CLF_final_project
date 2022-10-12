@@ -20,15 +20,15 @@ export class AppComponent {
   }
 
   myQuest(){
-    this.router.navigate(['/myquest', this.userSvc.sessEmail]);
+    this.router.navigate(['/myquest', this.userSvc.sessId]);
   }
 
   createQuest(){
-    this.router.navigate(['/questcreate', this.userSvc.sessEmail]);
+    this.router.navigate(['/questcreate', this.userSvc.sessId]);
   }
 
   participateQuest(){
-    this.router.navigate(['/questparticipate', this.userSvc.sessEmail]);
+    this.router.navigate(['/questparticipate', this.userSvc.sessId]);
   }
 
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+import project_backend.mapper.LoginMapper;
 import project_backend.mapper.UserMapper;
 import project_backend.model.User;
 
@@ -15,6 +16,8 @@ public class UserRepository {
     private static String SQL_INSERT_NEW_USER = " insert into user (user_id, password, email) values (?,?,?)";
     private static String SQL_FIND_USER_BY_EMAIL = "select email from user where email = ?";
     private static String SQL_AUTH_USER = "select email, password from user where email =? and password =?";
+
+    private static String SQL_GET_USER = "select * from user where email =? and password =?";
 
     @Autowired
     private JdbcTemplate template;
@@ -38,6 +41,10 @@ public class UserRepository {
         User result = template.queryForObject(SQL_AUTH_USER, new UserMapper(), email, password);
         return Optional.of(result);
 
+    }
+    public Optional<User> getUserIdByLogin (String email, String password){
+        User result = template.queryForObject(SQL_GET_USER, new LoginMapper(), email, password);
+        return Optional.of(result);
     }
 
 

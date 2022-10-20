@@ -9,5 +9,4 @@ class ProjectBackendApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

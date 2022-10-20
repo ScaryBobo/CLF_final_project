@@ -10,6 +10,9 @@ import {  MatMenuModule } from '@angular/material/menu';
 import {  MatListModule } from '@angular/material/list';
 import { MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 
 
@@ -18,7 +21,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 const matModules: any[] = [
     MatToolbarModule, MatButtonModule, MatListModule,
     MatIconModule, MatInputModule, MatFormFieldModule,
-    MatSelectModule, MatSidenavModule, MatMenuModule, MatCardModule, MatSnackBarModule
+    MatSelectModule, MatSidenavModule, MatMenuModule, MatCardModule, MatSnackBarModule, MatTableModule, MatPaginatorModule, MatSortModule
 ]
 
 @NgModule({

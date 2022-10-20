@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize, Subscription } from 'rxjs';
 import * as XLSX from 'xlsx';
-import { UploadfileService } from '../uploadfile.service';
+import { FileService } from '../file.service';
 import { UserService } from '../user.service';
 
 @Component({
@@ -14,12 +14,13 @@ import { UserService } from '../user.service';
 export class QuestionairesCreateComponent implements OnInit {
 
   
-constructor(private http: HttpClient, private uploadSvc : UploadfileService, private userSvc: UserService, private fb: FormBuilder) { }
+constructor(private fileSvc : FileService, private userSvc: UserService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
 
-      file: this.fb.control<any>('', [ Validators.required ])
+      file: this.fb.control<any>('', [ Validators.required ]),
+      title: this.fb.control<string>('', [ Validators.required ])
     })
   }
 
@@ -34,11 +35,14 @@ constructor(private http: HttpClient, private uploadSvc : UploadfileService, pri
     console.info('>>> toUpload: ', this.toUpload.nativeElement.files[0])
 
     const myFile = this.toUpload.nativeElement.files[0]
+    const title = this.form.get('title')?.value
     
-    this.uploadSvc.upload(myFile, this.userSvc.sessId )
+    this.fileSvc.upload(myFile, this.userSvc.sessId, title )
       .then(result => {
+        alert("File has uploaded successfully")
         console.info('>>> result: ', result)
       }) .catch(error => {
+        alert("File is not uploaded")
         console.error('>> error: ', error)
       })
   }

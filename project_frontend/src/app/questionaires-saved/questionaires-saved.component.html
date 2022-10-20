@@ -1,1 +1,30 @@
 <p>questionaires-saved works!</p>
+
+<div>
+    <div>
+        <h2>List of created Questionnaires</h2>
+    </div>
+
+    <div>
+        <ng-container *ngIf="retrievedQuestionnaires.length>0">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Questionnaire ID</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let questionnaire of retrievedQuestionnaires ;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{questionnaire.questionnaireId}}</td>
+                        <td>{{questionnaire.dateCreated}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+
+</div>

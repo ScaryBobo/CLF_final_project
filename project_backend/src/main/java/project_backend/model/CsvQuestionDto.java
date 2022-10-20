@@ -2,9 +2,11 @@ package project_backend.model;
 
 import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 @Data
-public class Question {
+public class CsvQuestionDto {
     @CsvBindByName
     private String question;
     @CsvBindByName

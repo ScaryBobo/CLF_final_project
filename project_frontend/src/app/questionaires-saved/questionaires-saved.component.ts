@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FileService } from '../file.service';
+import { Questionnaire } from '../model';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-questionaires-saved',
@@ -8,10 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QuestionairesSavedComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  retrievedQuestionnaires !: Questionnaire[]
+
+  constructor(private fileSvc : FileService, private userSvc : UserService) { }
 
   ngOnInit(): void {
-    const email = this.route.snapshot.params['email'];
+    this.fileSvc.getSurveyByUser(this.userSvc.sessId).subscribe(x => this.retrievedQuestionnaires = x);
   }
 
 }

@@ -1,9 +1,14 @@
+<div class="space-around" style="margin-top: 10px;">
+  <form [formGroup]="form" (ngSubmit)="doUpload()">
 
-<form [formGroup]="form" (ngSubmit)="doUpload()">
-  
-  <input type="file" placeholder="Your email please" formControlName="file" #toUpload >
+    <mat-form-field appearance="fill">
 
-  <div class="space-around" style="margin-top: 10px;">
+      <mat-label>Title</mat-label>
+      <input type="text" placeholder="Upload title" matInput formControlName="title">
+    </mat-form-field>
+
+    <input type="file" placeholder="Your email please" formControlName="file" #toUpload>
+
     <button type="button" mat-raised-button color="accent">
       Cancel
       <mat-icon fontIcon="cancel"></mat-icon>
@@ -12,6 +17,6 @@
       Upload
     </button>
 
-  </div>
-</form>
+  </form>
+</div>
 

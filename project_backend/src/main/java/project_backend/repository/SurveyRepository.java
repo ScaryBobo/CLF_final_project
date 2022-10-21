@@ -3,7 +3,11 @@ package project_backend.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import project_backend.mapper.AnswerMapper;
+import project_backend.mapper.QuestionMapper;
 import project_backend.mapper.SurveyMapper;
+import project_backend.model.questionnaire.Answer;
+import project_backend.model.questionnaire.Question;
 import project_backend.model.questionnaire.Survey;
 
 import java.util.List;
@@ -23,7 +27,9 @@ public class SurveyRepository implements SurveyDAL{
     private static final String SQL_INSERT_ANSWERED_SURVEY = "Insert into answeredSurvey (attempt_id, question_id, answer_id) values (?,?,?)";
     
     //RESULTS CREATION
-    private static final String SQL_GET_LIST_OF_SURVEYS_ANSWERED_BY_USER="Select * from survey where survey_id = (select survey_id from attempt where user_id =? )";
+    private static final String SQL_GET_LIST_OF_SURVEYS_BY_USER="Select * from survey where user_id = ?";
+    private static final String SQL_GET_LIST_OF_QUESTIONS_BY_SURVEY = "Select * from question where survey_id =?";
+    private static final String SQL_GET_LIST_OF_ANSWERS_BY_QUESTION = "Select * from answer where question_id =?";
     
     @Override
     public boolean insertSurvey(String userId, String surveyTitle, String surveyId) {
@@ -56,7 +62,17 @@ public class SurveyRepository implements SurveyDAL{
     }
 
     @Override
-    public List<Survey> getListOfAnsweredSurveysByUser(String userId) {
-        return template.query(SQL_GET_LIST_OF_SURVEYS_ANSWERED_BY_USER, new SurveyMapper(), userId);
+    public List<Survey> getListOfSurveyByUser(String userId) {
+        return template.query(SQL_GET_LIST_OF_SURVEYS_BY_USER, new SurveyMapper(), userId);
     }
+    @Override
+    public List<Question> getListOfQuestionsBySurvey(String surveyId) {
+        return template.query(SQL_GET_LIST_OF_QUESTIONS_BY_SURVEY, new QuestionMapper(), surveyId);
+    }
+    @Override
+    public List<Answer> getListOfAnswersByQuestion(String questionId) {
+        return template.query(SQL_GET_LIST_OF_ANSWERS_BY_QUESTION, new AnswerMapper(), questionId);
+    }
+
+
 }

@@ -7,14 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class SurveyMapper implements RowMapper<Survey> {
-
+    @Override
     public Survey mapRow (ResultSet rs, int numRow) throws SQLException {
-        // Survey
-        // survey.setSurveyId(rs.getString("survey_id"));
-        // survey.setSurveyTitle(rs.getString("survey_title"));
-        // survey.setUserId(rs.getString("user_id"));
-        // survey.setDateCreated(rs.getString("created_ts"));
-        return null;
-        // return survey;
+
+        return Survey.builder()
+                .userId(rs.getString("user_id"))
+                .surveyTitle(rs.getString("survey_title"))
+                .dateCreated(rs.getString("created_ts"))
+                .surveyId(rs.getString("survey_id"))
+                .build();
     }
 }

@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import project_backend.model.questionnaire.Answer;
 import project_backend.model.questionnaire.Question;
 import project_backend.model.questionnaire.Survey;
 import project_backend.repository.SurveyRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 
 
 @Service
@@ -25,5 +27,18 @@ public class SurveyService {
             question.getAnswers().stream().forEach(answer -> surveyRepo.insertAnswer(
                     answer.getAnswerId(), answer.getAnswerText(), answer.getQuestionId()));
         }
+    }
+    
+    public List<Survey> getSurvey(String userId){
+        List<Survey> surveyList = surveyRepo.getListOfSurveyByUser(userId);
+        for (Survey survey : surveyList){
+            survey.setQuestions(surveyRepo.getListOfQuestionsBySurvey(survey.getSurveyId()));
+            
+            for (Question question : survey.getQuestions()){
+                question.setAnswers(surveyRepo.getListOfAnswersByQuestion(question.getQuestionId()));
+            }
+        }
+        
+        return surveyList;
     }
 }

@@ -6,21 +6,21 @@
     </div>
 
     <div>
-        <ng-container *ngIf="retrievedQuestionnaires.length>0">
+        <ng-container *ngIf="retrievedSurvey.length>0">
             <table>
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Questionnaire ID</th>
+                        <th>Survey Title</th>
                         <th>Date Created</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let questionnaire of retrievedQuestionnaires ;index as i">
+                    <tr *ngFor="let survey of retrievedSurvey ;index as i">
                         <td>{{i+1}}</td>
-                        <td>{{questionnaire.questionnaireId}}</td>
-                        <td>{{questionnaire.dateCreated}}</td>
+                        <td>{{survey.surveyTitle}}</td>
+                        <td>{{survey.dateCreated}}</td>
                     </tr>
                 </tbody>
             </table>

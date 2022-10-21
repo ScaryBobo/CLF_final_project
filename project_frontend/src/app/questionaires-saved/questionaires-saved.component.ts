@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FileService } from '../file.service';
-import { Questionnaire } from '../model';
+import { Questionnaire, Survey } from '../model';
 import { UserService } from '../user.service';
 
 @Component({
@@ -11,12 +11,12 @@ import { UserService } from '../user.service';
 })
 export class QuestionairesSavedComponent implements OnInit {
 
-  retrievedQuestionnaires !: Questionnaire[]
+  retrievedSurvey !: Survey[]
 
   constructor(private fileSvc : FileService, private userSvc : UserService) { }
 
   ngOnInit(): void {
-    this.fileSvc.getSurveyByUser(this.userSvc.sessId).subscribe(x => this.retrievedQuestionnaires = x);
+    this.fileSvc.getSurveyByUser(this.userSvc.sessId).subscribe(x => this.retrievedSurvey = x);
   }
 
 }

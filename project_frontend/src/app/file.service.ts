@@ -1,7 +1,7 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { Questionnaire } from './model';
+import { Questionnaire, Survey } from './model';
 import { QuestionairesSavedComponent } from './questionaires-saved/questionaires-saved.component';
 
 
@@ -23,9 +23,9 @@ export class FileService {
     )
   }
 
-  getSurveyByUser(sessId: string) : Observable<Questionnaire[]>{
+  getSurveyByUser(sessId: string) : Observable<Survey[]>{
     console.log("getting all surveys by userId");
-    return this.http.get <Questionnaire[]>(`/getquizz/${sessId}`);
+    return this.http.get <Survey[]>(`/getquizz/${sessId}`);
 
   }
  

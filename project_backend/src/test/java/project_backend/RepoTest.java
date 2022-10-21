@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import project_backend.model.questionnaire.Survey;
 import project_backend.repository.SurveyRepository;
+import project_backend.service.SurveyService;
 ;import java.util.List;
 
 
@@ -15,6 +16,9 @@ public class RepoTest {
    
     @Autowired
     public SurveyRepository surveyRepository;
+    
+    @Autowired
+    public SurveyService surveySvc;
 
     @Test
     void test(){
@@ -25,4 +29,10 @@ public class RepoTest {
         surveyRepository.insertAnswer("question12345", "answerUploadTest1","answer12345");
         surveyRepository.insertAnswer("question12345", "answerUploadTest2","answer123456");
     }
+    
+    @Test
+    void getListOfSurveys(){
+        System.out.println(surveySvc.getSurvey("45b52f9a"));
+    }
+    
 }

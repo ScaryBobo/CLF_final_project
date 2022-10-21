@@ -58,6 +58,13 @@ public class QuizRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newSurvey);
     }
 
+    @GetMapping(path = "/getquizz/{sessId}")
+    public ResponseEntity <List<Survey>> getQuiz(@PathVariable String sessId){
+        List<Survey> userSurveyList = surveySvc.getSurvey(sessId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userSurveyList);
+    }
+
     private List<Question> createQuestionsFromCSV(List<CsvQuestionDto> csvQuestions, String surveyId) {
         return csvQuestions.stream()
                 .map(csvQuestion -> {

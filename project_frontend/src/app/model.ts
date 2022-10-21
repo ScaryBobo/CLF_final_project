@@ -3,18 +3,23 @@ export interface User {
     email : string
     password: number
 }
-
-export interface Question {
-    question : string
-    option1: string
-    option2: string
-    option3: string
-    option4: string
-}
-
-export interface Questionnaire {
-    questions : Question []
+export interface Survey {
+    surveyId : string
     userId : string
-    questionnaireID : string
+    surveyTitle : string
     dateCreated : string
+    questions: Question []
 }
+export interface Question {
+    surveyId : string
+    questionText : string
+    questionId : string
+    answers : Answer []
+}
+
+export interface Answer {
+    answerId : string
+    answerText : string
+    questionId : string
+}
+

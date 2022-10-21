@@ -1,5 +1,7 @@
 package project_backend.repository;
 
+import project_backend.model.questionnaire.Answer;
+import project_backend.model.questionnaire.Question;
 import project_backend.model.questionnaire.Survey;
 
 import java.util.List;
@@ -17,8 +19,13 @@ public interface SurveyDAL {
     boolean insertAnsweredSurvey (String attemptId, String questionId, String answerId);
 
 
-    //Get list of surveys answered by a user
-    List<Survey> getListOfAnsweredSurveysByUser (String userId);
+    //Get list of surveys by user
+    List<Survey> getListOfSurveyByUser(String userId);
+    List<Question> getListOfQuestionsBySurvey (String surveyId);
+    List<Answer> getListOfAnswersByQuestion(String questionId);
+
+
+
 
 
 

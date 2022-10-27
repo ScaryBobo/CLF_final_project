@@ -32,8 +32,8 @@ export interface Attempt {
 
 export interface AnsweredSurvey {
     attemptId ?: string
-    questionId ?: string
-    answerId ?: string
+    questionId : string
+    answerId : string
 }
 
 

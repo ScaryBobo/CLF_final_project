@@ -115,8 +115,7 @@ public class QuizRestController {
 
         surveySvc.createAttempt(newAttempt, answeredSurveyList);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(newAttempt);
     }
 
 

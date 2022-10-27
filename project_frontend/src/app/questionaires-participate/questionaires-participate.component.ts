@@ -22,7 +22,10 @@ export class QuestionairesParticipateComponent implements OnInit {
   sessId !: string
   surveyId !: string
 
-  responses : AnsweredSurvey = {}
+  responses : AnsweredSurvey = {
+    questionId :'' ,
+    answerId :''
+  }
   
 
   isQuizCompleted : boolean = false;
@@ -54,7 +57,8 @@ export class QuestionairesParticipateComponent implements OnInit {
     console.log(">>> questionId stored is :", this.responses.questionId)
     console.log( ">>> answerId stored is ", this.responses.answerId);
 
-    this.fileSvc.answeredObject.push(this.responses)
+
+    this.fileSvc.answeredObject.push({...this.responses})
     console.log(">>> fileSvcAnsweredOBj:", this.fileSvc.answeredObject)
 
     this.sessId = this.userSvc.sessId;
@@ -76,6 +80,8 @@ export class QuestionairesParticipateComponent implements OnInit {
   }
 
   submitAttempt(){
+    this.fileSvc.attemptSubmit.answeredSurveys = this.fileSvc.answeredObject;
+    console.log(">>> final payload sent: ", this.fileSvc.attemptSubmit);
     this.fileSvc.createAttempt(this.fileSvc.attemptSubmit, this.userSvc.sessId).subscribe(data => {
       alert ("Attempt submitted")
       console.log(">>>>> data ", data)

@@ -23,3 +23,18 @@ export interface Answer {
     questionId : string
 }
 
+export interface Attempt {
+    surveyId ?: string
+    userId ?: string
+    attemptId?: string
+    answeredSurveys ?: AnsweredSurvey[] 
+}
+
+export interface AnsweredSurvey {
+    attemptId ?: string
+    questionId ?: string
+    answerId ?: string
+}
+
+
+

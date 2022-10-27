@@ -27,8 +27,8 @@ export class AppComponent {
     this.router.navigate(['/questcreate', this.userSvc.sessId]);
   }
 
-  participateQuest(){
-    this.router.navigate(['/questparticipate', this.userSvc.sessId]);
+  searchQuest(){
+    this.router.navigate(['/questsearch', this.userSvc.sessId]);
   }
 
 

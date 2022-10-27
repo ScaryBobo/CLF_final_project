@@ -1,10 +1,12 @@
 package project_backend.repository;
 
 import project_backend.model.questionnaire.Answer;
+import project_backend.model.questionnaire.Attempt;
 import project_backend.model.questionnaire.Question;
 import project_backend.model.questionnaire.Survey;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SurveyDAL {
 
@@ -23,6 +25,15 @@ public interface SurveyDAL {
     List<Survey> getListOfSurveyByUser(String userId);
     List<Question> getListOfQuestionsBySurvey (String surveyId);
     List<Answer> getListOfAnswersByQuestion(String questionId);
+
+
+    //Check if attemptId is present
+    Optional<Attempt> checkAttemptIdPresent (String attemptId);
+
+    //Delete created survey
+    boolean deleteSurveyByUser(String userId);
+    boolean deleteQuestionsBySurvey (String surveyId);
+    boolean deleteAnswersByQuestion (String questionId);
 
 
 

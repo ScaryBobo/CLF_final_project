@@ -1,0 +1,33 @@
+<div>
+    <div>
+        <h2>List of Questionnaires created by {{email}}</h2>
+    </div>
+
+    <div>
+        <ng-container *ngIf="retrievedSurvey.length>0">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Survey Title</th>
+                        <th>Date Created</th>
+                        <th>Click to Attempt</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let survey of retrievedSurvey ;index as i">
+                        <td>{{i+1}}</td>
+                        <td>{{survey.surveyTitle}}</td>
+                        <td>{{survey.dateCreated}}</td>
+                        <td>
+                            <button class="btn" (click)="attempt(i)"><i class="fa fa-check"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-container>
+    </div>
+
+</div>
+

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { FileService } from '../file.service';
-import { Questionnaire, Survey } from '../model';
+import { Survey } from '../model';
 import { UserService } from '../user.service';
 
 @Component({
@@ -9,14 +10,18 @@ import { UserService } from '../user.service';
   templateUrl: './questionaires-saved.component.html',
   styleUrls: ['./questionaires-saved.component.css']
 })
-export class QuestionairesSavedComponent implements OnInit {
+export class QuestionairesSavedComponent implements OnInit, OnDestroy {
 
   retrievedSurvey !: Survey[]
+  subscription !: Subscription
 
-  constructor(private fileSvc : FileService, private userSvc : UserService) { }
+  constructor(private fileSvc: FileService, private userSvc: UserService) { }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
-    this.fileSvc.getSurveyByUser(this.userSvc.sessId).subscribe(x => this.retrievedSurvey = x);
+   this.subscription = this.fileSvc.getSurveyByUser(this.userSvc.sessId).subscribe(x => this.retrievedSurvey = x);
   }
 
 }

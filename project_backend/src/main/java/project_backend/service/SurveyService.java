@@ -3,14 +3,15 @@ package project_backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import project_backend.model.questionnaire.Answer;
+import project_backend.model.questionnaire.AnsweredSurvey;
+import project_backend.model.questionnaire.Attempt;
 import project_backend.model.questionnaire.Question;
 import project_backend.model.questionnaire.Survey;
 import project_backend.repository.SurveyRepository;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -41,4 +42,27 @@ public class SurveyService {
         
         return surveyList;
     }
+
+    public List<Question> retrieveSurvey (String surveyId){
+        Survey newSurvey = Survey.builder().questions(surveyRepo.getListOfQuestionsBySurvey(surveyId)).build();
+        for (Question question : newSurvey.getQuestions()){
+            question.setAnswers(surveyRepo.getListOfAnswersByQuestion(question.getQuestionId()));
+        }
+        List<Question> questionList = newSurvey.getQuestions();
+        return questionList;
+    }
+    @Transactional(rollbackFor = {SQLException.class})
+    public void  createAttempt (Attempt attempt, List<AnsweredSurvey> answeredSurveys ){
+
+        surveyRepo.insertAttempt(attempt.getAttemptId(), attempt.getSurveyId(), attempt.getUserId());
+
+        for (AnsweredSurvey answeredSurvey : answeredSurveys) {
+            surveyRepo.insertAnsweredSurvey(answeredSurvey.getAttemptId(), answeredSurvey.getQuestionId(), answeredSurvey.getAnswerId());
+        }
+    }
+
+    public Optional<Attempt> verifyAttemptIdPresent (String attemptId){
+        return surveyRepo.checkAttemptIdPresent(attemptId);
+    }
+
 }

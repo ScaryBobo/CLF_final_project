@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import project_backend.mapper.AnswerMapper;
+import project_backend.mapper.AttemptMapper;
 import project_backend.mapper.QuestionMapper;
 import project_backend.mapper.SurveyMapper;
 import project_backend.model.questionnaire.Answer;
+import project_backend.model.questionnaire.Attempt;
 import project_backend.model.questionnaire.Question;
 import project_backend.model.questionnaire.Survey;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class SurveyRepository implements SurveyDAL{
@@ -25,12 +28,21 @@ public class SurveyRepository implements SurveyDAL{
     //ATTEMPT CREATION
     private static final String SQL_INSERT_ATTEMPT = "Insert into attempt (attempt_id, survey_id, user_id) values (?,?,?)";
     private static final String SQL_INSERT_ANSWERED_SURVEY = "Insert into answeredSurvey (attempt_id, question_id, answer_id) values (?,?,?)";
+
+    private static final String SQL_CHECK_IF_ATTEMPT_PRESENT = "select * from attempt where attempt_id =?";
     
     //RESULTS CREATION
     private static final String SQL_GET_LIST_OF_SURVEYS_BY_USER="Select * from survey where user_id = ?";
     private static final String SQL_GET_LIST_OF_QUESTIONS_BY_SURVEY = "Select * from question where survey_id =?";
     private static final String SQL_GET_LIST_OF_ANSWERS_BY_QUESTION = "Select * from answer where question_id =?";
-    
+
+
+
+
+    //Deletion
+    private static final String SQL_DELETE_SURVEY_BY_USER = "Delete from survey where user_id =?";
+    private static final String SQL_DELETE_QUESTIONS_BY_SURVEY = "Delete from question where survey_id =?";
+    private static final String SQL_DELETE_ANSWERS_BY_QUESTIONS = "Delete from answer where question_id IN (?,?, ...);";
     @Override
     public boolean insertSurvey(String userId, String surveyTitle, String surveyId) {
         final int rowCount = template.update(SQL_INSERT_SURVEY, userId, surveyTitle, surveyId);
@@ -72,6 +84,28 @@ public class SurveyRepository implements SurveyDAL{
     @Override
     public List<Answer> getListOfAnswersByQuestion(String questionId) {
         return template.query(SQL_GET_LIST_OF_ANSWERS_BY_QUESTION, new AnswerMapper(), questionId);
+    }
+
+    @Override
+    public Optional<Attempt> checkAttemptIdPresent(String attemptId) {
+        Attempt result = template.queryForObject(SQL_CHECK_IF_ATTEMPT_PRESENT, new AttemptMapper(), attemptId);
+        return Optional.of(result);
+    }
+
+    @Override
+    public boolean deleteSurveyByUser(String userId) {
+        
+        return false;
+    }
+
+    @Override
+    public boolean deleteQuestionsBySurvey(String surveyId) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteAnswersByQuestion(String questionId) {
+        return false;
     }
 
 

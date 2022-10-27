@@ -25,10 +25,11 @@ public class UserService {
         return userRepo.verifyUser(user.getEmail(), user.getPassword()).isPresent();
     }
 
+    public Optional <String> getUserId (String email){return userRepo.getUserIdByEmail(email);}
+
     public Optional<User> getUser (User user){
         return userRepo.getUserIdByLogin(user.getEmail(), user.getPassword());
     }
-
     public String generateUserId (){return UUID.randomUUID().toString().substring(0,8); }
 
 }

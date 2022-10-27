@@ -1,0 +1,21 @@
+<mat-card>
+    <mat-card-content>
+        <div class="header">
+            <h2> Search for a Survey</h2>
+        </div>
+        <form (ngSubmit)="search()" name="loginForm" [formGroup]="searchSurveyForm">
+            <div class="email-input">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" matInput required >
+                    <mat-error *ngIf="searchSurveyForm.get('email')?.hasError('required')">
+                        Required email address
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <button mat-flat-button color="primary" type="submit" [disabled]="!searchSurveyForm.valid">Search</button>
+        </form>
+
+    </mat-card-content>
+</mat-card>

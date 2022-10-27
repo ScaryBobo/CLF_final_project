@@ -1,5 +1,6 @@
 package project_backend.controller;
 
+import com.google.gson.Gson;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project_backend.model.CsvQuestionDto;
-import project_backend.model.questionnaire.Answer;
-import project_backend.model.questionnaire.Question;
-import project_backend.model.questionnaire.Survey;
+import project_backend.model.User;
+import project_backend.model.attemptMapper.AttemptPayloadWrapper;
+import project_backend.model.questionnaire.*;
 import project_backend.repository.QuestionRepository;
 import project_backend.service.SurveyService;
+import project_backend.service.UserService;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Logger;
 
 @RestController
@@ -34,6 +33,9 @@ public class QuizRestController {
 
     @Autowired
     private SurveyService surveySvc;
+
+    @Autowired
+    private UserService userSvc;
 
     @PostMapping(path = "/createquiz/{sessId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Survey> createQuiz(@RequestPart("myfile") MultipartFile file,
@@ -58,12 +60,65 @@ public class QuizRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newSurvey);
     }
 
+    // Search list of Surveys created by current user
     @GetMapping(path = "/getquizz/{sessId}")
     public ResponseEntity <List<Survey>> getQuiz(@PathVariable String sessId){
         List<Survey> userSurveyList = surveySvc.getSurvey(sessId);
 
         return ResponseEntity.status(HttpStatus.OK).body(userSurveyList);
     }
+
+
+    // Search list of Surveys by Email
+    @GetMapping (path = "/searchuserquizzes")
+    public ResponseEntity<List<Survey>> searchQuizByUser (@RequestParam String email){
+        System.out.println("payload is >>>>>" + email);
+        Optional<String> userIdOpt = userSvc.getUserId(email);
+        if(userIdOpt.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        List<Survey> surveyList = surveySvc.getSurvey(userIdOpt.get());
+        return ResponseEntity.status(HttpStatus.OK).body(surveyList);
+    }
+
+    @GetMapping (path = "/displayquiz")
+    public ResponseEntity<List<Question>> loadSurvey (@RequestParam String surveyId){
+        System.out.println(">>>> surveyId requested" + surveyId);
+        List<Question> questionList = surveySvc.retrieveSurvey(surveyId);
+        return ResponseEntity.status(HttpStatus.OK).body(questionList);
+    }
+
+    @PostMapping (path = "/createattempt/{sessId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Attempt> createAttempt (@PathVariable String sessId,
+                                                  @RequestBody String payload){
+
+        System.out.println(">>>> payload : " + payload);
+
+        Gson gson = new Gson();
+        AttemptPayloadWrapper attemptPayloadWrapper = gson.fromJson(payload, AttemptPayloadWrapper.class);
+
+        Attempt newAttempt = Attempt.builder()
+                .attemptId(constructUUID())
+                .userId(sessId)
+                .surveyId(attemptPayloadWrapper.getSurveyId())
+                .build();
+
+        List<AnsweredSurvey> answeredSurveyList = attemptPayloadWrapper.getAnsweredSurveys().stream()
+                .map(x -> {
+                    return AnsweredSurvey.builder()
+                            .attemptId(newAttempt.getAttemptId())
+                            .questionId(x.getQuestionId())
+                            .answerId(x.getAnswerId()).build();
+                }).toList();
+        System.out.println(">>>> attempt: " + newAttempt);
+        System.out.println(">>> List of answered survey:" + answeredSurveyList.toString());
+
+        surveySvc.createAttempt(newAttempt, answeredSurveyList);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+
+    }
+
 
     private List<Question> createQuestionsFromCSV(List<CsvQuestionDto> csvQuestions, String surveyId) {
         return csvQuestions.stream()
@@ -97,6 +152,5 @@ public class QuizRestController {
                                         ))).build();
                 }).toList();
     }
-
     private String constructUUID(){return UUID.randomUUID().toString();}
 }

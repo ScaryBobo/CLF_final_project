@@ -1,1 +1,61 @@
-<p>questionaires-participate works!</p>
+<div class="container mt-5">
+    <div class="card">
+        <div class="d-flex justify-content-between p-3">
+            <div class="image">
+                <img src="https://www.pngfind.com/pngs/m/139-1398273_survey-png-pic-survey-logo-png-transparent-png.png"
+                    width="90" alt="logo">
+            </div>
+            <div class="quiz-header">
+                <h4 style="font-family: cursive;">Survey Time!</h4>
+                <span style="font-style: italic;">Survey Attempt for {{email}}</span>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!isQuizCompleted" >
+            <div class="d-flex.justify-content-between py-3">
+                <div class="question-remain">
+                    <span style="font-style: italic;">Question {{currentQuestion + 1}} of {{questionList.length}}</span>
+                </div>
+            </div>
+    
+            <div class="progress mb-3">
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                    aria-label="Success striped example" [ngStyle]="{'width': progress+'%'}" aria-valuenow="25" aria-valuemin="0"
+                    aria-valuemax="100"></div>
+            </div>
+    
+            <div class="question">
+                <div class="card">
+                    <h3>{{questionList[currentQuestion]?.questionText}}</h3>
+                </div>
+            </div>
+            <div class="options">
+                <ol *ngFor="let option of questionList[currentQuestion]?.answers">
+                    <li (click)="answer(currentQuestion, option.answerId)">
+                        <div appChangeBg [isSelected]="option" class="card">
+                            {{option.answerText}}
+                        </div>
+                    </li>
+                   
+                </ol>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button class="btn-float-right" [disabled]="currentQuestion == questionList.length - 1" (click)="nextQuestion()"><i class="fa text-primary fa-chevron-right fa-3x" aria-hidden="true"></i></button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="isQuizCompleted" >
+            <div class="row d-flex justify-content-between">
+                <img style="width: 50%" class="img-fluid col-sm-12 mx-auto" src="https://cdn3.iconfinder.com/data/icons/object-emoji/50/Celebration-512.png" alt="">
+                <div class = "result text-center col-md-6 col-sm-12">
+                    <h3>CONGRATS ON COMPLETING THE SURVEY</h3>
+                </div>
+
+                <button type="button" (click)="submitAttempt()"> Submit</button>
+
+            </div>
+        </ng-container>
+
+       
+    </div>
+</div>

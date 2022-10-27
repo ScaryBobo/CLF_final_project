@@ -14,13 +14,20 @@ import { QuestionairesCreateComponent } from './questionaires-create/questionair
 import { QuestionairesParticipateComponent } from './questionaires-participate/questionaires-participate.component';
 import { QuestionairesSavedComponent } from './questionaires-saved/questionaires-saved.component';
 import { UserService } from './user.service';
-import { NgxCsvParserModule } from 'ngx-csv-parser';
+
+import { SurveySearchComponent } from './survey-search/survey-search.component';
+import { FileService } from './file.service';
+import { SurveySearchResultComponent } from './survey-search-result/survey-search-result.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChangeBgDirective } from './change-bg.directive';
 
 const appRoutes : Routes = [
   {path: '', component: UserLoginComponent},
   {path: 'usercreate', component: UserCreateComponent},
   {path: 'myquest/:userId', component: QuestionairesSavedComponent},
   {path: 'questcreate/:userId', component: QuestionairesCreateComponent},
+  {path: 'questsearch/result', component: SurveySearchResultComponent},
+  {path: 'questsearch/:userId', component: SurveySearchComponent},
   {path: 'questparticipate/:userId', component: QuestionairesParticipateComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
@@ -32,14 +39,17 @@ const appRoutes : Routes = [
     UserCreateComponent,
     QuestionairesCreateComponent,
     QuestionairesParticipateComponent,
-    QuestionairesSavedComponent
+    QuestionairesSavedComponent,
+    SurveySearchComponent,
+    SurveySearchResultComponent,
+    ChangeBgDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule, MaterialModule, HttpClientModule, ReactiveFormsModule, FormsModule, 
-    RouterModule.forRoot(appRoutes, {useHash: true})
+    RouterModule.forRoot(appRoutes, {useHash: true}), FontAwesomeModule
   ],
-  providers: [UserService],
+  providers: [UserService, FileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

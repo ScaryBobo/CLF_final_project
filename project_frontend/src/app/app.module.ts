@@ -21,6 +21,8 @@ import { SurveySearchResultComponent } from './survey-search-result/survey-searc
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeBgDirective } from './change-bg.directive';
 
+import { SurveyResultResultComponent } from './survey-result-result/survey-result-result.component';
+
 const appRoutes : Routes = [
   {path: '', component: UserLoginComponent},
   {path: 'usercreate', component: UserCreateComponent},
@@ -42,7 +44,8 @@ const appRoutes : Routes = [
     QuestionairesSavedComponent,
     SurveySearchComponent,
     SurveySearchResultComponent,
-    ChangeBgDirective
+    ChangeBgDirective,
+    SurveyResultResultComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,7 @@
 package project_backend.repository;
 
-import project_backend.model.questionnaire.Answer;
-import project_backend.model.questionnaire.Attempt;
-import project_backend.model.questionnaire.Question;
-import project_backend.model.questionnaire.Survey;
+import project_backend.model.ChartImageInputs;
+import project_backend.model.questionnaire.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,8 +33,10 @@ public interface SurveyDAL {
     boolean deleteQuestionsBySurvey (String surveyId);
     boolean deleteAnswersByQuestion (String questionId);
 
+    List<Attempt> getListAttemptsBySurvey (String surveyId);
+    List<AnsweredSurvey> getListOfQuestionIdAndAnswerIdByAttempt (String attemptId);
 
-
+    List<ChartImageInputs> getListOfQuestionTextAnswerTextAndCountsBySurveyId(String surveyID);
 
 
 

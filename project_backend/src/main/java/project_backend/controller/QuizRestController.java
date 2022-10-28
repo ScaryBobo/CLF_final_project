@@ -10,14 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project_backend.model.CsvQuestionDto;
-import project_backend.model.User;
 import project_backend.model.attemptMapper.AttemptPayloadWrapper;
 import project_backend.model.questionnaire.*;
 import project_backend.repository.QuestionRepository;
 import project_backend.service.SurveyService;
 import project_backend.service.UserService;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Logger;
@@ -84,7 +85,7 @@ public class QuizRestController {
     @GetMapping (path = "/displayquiz")
     public ResponseEntity<List<Question>> loadSurvey (@RequestParam String surveyId){
         System.out.println(">>>> surveyId requested" + surveyId);
-        List<Question> questionList = surveySvc.retrieveSurvey(surveyId);
+        List<Question> questionList = surveySvc.retrieveQuestionListBySurveyId(surveyId);
         return ResponseEntity.status(HttpStatus.OK).body(questionList);
     }
 
@@ -111,7 +112,7 @@ public class QuizRestController {
                             .answerId(x.getAnswerId()).build();
                 }).toList();
         System.out.println(">>>> attempt: " + newAttempt);
-        System.out.println(">>> List of answered survey:" + answeredSurveyList.toString());
+        System.out.println(">>> List of answered survey:" + answeredSurveyList);
 
         surveySvc.createAttempt(newAttempt, answeredSurveyList);
 

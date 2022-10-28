@@ -3,6 +3,7 @@ package project_backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project_backend.model.ChartImageInputs;
 import project_backend.model.questionnaire.AnsweredSurvey;
 import project_backend.model.questionnaire.Attempt;
 import project_backend.model.questionnaire.Question;
@@ -43,7 +44,7 @@ public class SurveyService {
         return surveyList;
     }
 
-    public List<Question> retrieveSurvey (String surveyId){
+    public List<Question> retrieveQuestionListBySurveyId(String surveyId){
         Survey newSurvey = Survey.builder().questions(surveyRepo.getListOfQuestionsBySurvey(surveyId)).build();
         for (Question question : newSurvey.getQuestions()){
             question.setAnswers(surveyRepo.getListOfAnswersByQuestion(question.getQuestionId()));
@@ -63,6 +64,18 @@ public class SurveyService {
 
     public Optional<Attempt> verifyAttemptIdPresent (String attemptId){
         return surveyRepo.checkAttemptIdPresent(attemptId);
+    }
+
+    public List<Attempt> retrieveListOfAttemptsBySurvey (String surveyId) {
+        return surveyRepo.getListAttemptsBySurvey(surveyId);
+    }
+
+    public List<AnsweredSurvey> retrieveListOfAnsweredSurveyByAttempt (String attemptId){
+        return surveyRepo.getListOfQuestionIdAndAnswerIdByAttempt(attemptId);
+    }
+
+    public List<ChartImageInputs> retrieveListOfChartInputs (String surveyId){
+        return surveyRepo.getListOfQuestionTextAnswerTextAndCountsBySurveyId(surveyId);
     }
 
 }

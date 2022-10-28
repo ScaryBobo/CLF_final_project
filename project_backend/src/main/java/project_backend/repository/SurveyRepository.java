@@ -3,14 +3,9 @@ package project_backend.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import project_backend.mapper.AnswerMapper;
-import project_backend.mapper.AttemptMapper;
-import project_backend.mapper.QuestionMapper;
-import project_backend.mapper.SurveyMapper;
-import project_backend.model.questionnaire.Answer;
-import project_backend.model.questionnaire.Attempt;
-import project_backend.model.questionnaire.Question;
-import project_backend.model.questionnaire.Survey;
+import project_backend.mapper.*;
+import project_backend.model.ChartImageInputs;
+import project_backend.model.questionnaire.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +32,12 @@ public class SurveyRepository implements SurveyDAL{
     private static final String SQL_GET_LIST_OF_ANSWERS_BY_QUESTION = "Select * from answer where question_id =?";
 
 
+    private static final String SQL_GET_LIST_OF_ATTEMPTS_BY_SURVEY = "select * from attempt where survey_id =?";
+    private static final String SQL_GET_LIST_OF_QUESTIONID_AND_ANSWERID_BY_ATTEMPT = "select * from answeredSurvey where attempt_id =?";
+
+    private static final String SQL_GET_LIST_OF_QUESTION_TEXT_ANSWER_TEXT_AND_COUNTS_BY_SURVEYID = "select question_id, question_text, GROUP_CONCAT(answer_text) as answer_texts, GROUP_CONCAT(counts) as counts FROM AGG_ANS_VIEW " +
+            "where question_id in (SELECT question.question_id from question where survey_id =?) " +
+            "GROUP BY question_id";
 
 
     //Deletion
@@ -106,6 +107,21 @@ public class SurveyRepository implements SurveyDAL{
     @Override
     public boolean deleteAnswersByQuestion(String questionId) {
         return false;
+    }
+
+    @Override
+    public List<Attempt> getListAttemptsBySurvey(String surveyId) {
+        return template.query(SQL_GET_LIST_OF_ATTEMPTS_BY_SURVEY, new AttemptMapper(), surveyId);
+    }
+
+    @Override
+    public List<AnsweredSurvey> getListOfQuestionIdAndAnswerIdByAttempt(String attemptId) {
+        return template.query(SQL_GET_LIST_OF_QUESTIONID_AND_ANSWERID_BY_ATTEMPT, new AnsweredSurveyMapper(), attemptId);
+    }
+
+    @Override
+    public List<ChartImageInputs> getListOfQuestionTextAnswerTextAndCountsBySurveyId(String surveyId) {
+        return template.query(SQL_GET_LIST_OF_QUESTION_TEXT_ANSWER_TEXT_AND_COUNTS_BY_SURVEYID, new ChartImageInputMapper(), surveyId);
     }
 
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FileService } from '../file.service';
+
 
 @Component({
   selector: 'app-survey-result-result',
@@ -7,11 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SurveyResultResultComponent implements OnInit {
 
-  urlString !: string
+  urlMap = new Map<string, string>()
 
-  constructor() { }
+  surveyId !: string
+
+  displayGraphs : boolean = false
+
+  constructor(private fileSvc : FileService) { }
 
   ngOnInit(): void {
+    this.fileSvc.getResults(this.fileSvc.surveyId).subscribe(x => {
+      this.urlMap = x;
+      console.log(this.urlMap)});
+    
+  }
+
+  display(){
+    this.displayGraphs = true;
   }
 
   

@@ -19,6 +19,7 @@ public class UserRepository {
     private static final String SQL_GET_USERID_BY_EMAIL = "select user_id from user where email=?";
     private static final String SQL_AUTH_USER = "select email, password from user where email =? and password =?";
     private static final String SQL_GET_USER = "select * from user where email =? and password =?";
+    private static final String SQL_GET_EMAIL_BY_USERID = "select * from user where user_id=?";
 
     @Autowired
     private JdbcTemplate template;
@@ -56,8 +57,10 @@ public class UserRepository {
         return Optional.of(result.getString("user_id"));
     }
 
-
-
+    public Optional <User> getUserByUserId (String userId){
+        User result = template.queryForObject(SQL_GET_EMAIL_BY_USERID, new LoginMapper(), userId);
+        return Optional.of(result);
+    }
 
 
 

@@ -58,6 +58,12 @@ export class FileService {
     return this.http.post<Attempt>(`/createattempt/${sessId}`, attempt, {headers: headers});
   }
 
+  getResults(surveyId : string) : Observable<Map<string, string>> {
+    console.log(">>> getting image urls for surveyId", surveyId);
+    return this.http.get<Map<string, string>>(`/result/${surveyId}`);
+
+  }
+
 
 
 

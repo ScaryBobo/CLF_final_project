@@ -32,4 +32,8 @@ public class UserService {
     }
     public String generateUserId (){return UUID.randomUUID().toString().substring(0,8); }
 
+    public Optional<User> getUserById (String userId){
+        return userRepo.getUserByUserId(userId);
+    }
+
 }

@@ -2,6 +2,15 @@
     <div class="card">
        <h2>View responses for the survey in the link below: </h2>
 
-       <a [href]="urlString">Click here to see results</a>
+       <button type="button" class="button" (click)="display()">Click here to see results</button>
+
+       
     </div>
+
+    <ng-container *ngIf="displayGraphs">
+        <div class="card" *ngFor="let item of urlMap | keyvalue">
+            <img src="{{item.value}}">
+        </div>
+
+    </ng-container>
 </div>

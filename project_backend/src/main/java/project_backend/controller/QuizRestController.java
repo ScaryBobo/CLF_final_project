@@ -13,6 +13,7 @@ import project_backend.model.CsvQuestionDto;
 import project_backend.model.attemptMapper.AttemptPayloadWrapper;
 import project_backend.model.questionnaire.*;
 import project_backend.repository.QuestionRepository;
+import project_backend.service.EmailService;
 import project_backend.service.SurveyService;
 import project_backend.service.UserService;
 
@@ -37,6 +38,9 @@ public class QuizRestController {
 
     @Autowired
     private UserService userSvc;
+
+    @Autowired
+    private EmailService emailSvc;
 
     @PostMapping(path = "/createquiz/{sessId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Survey> createQuiz(@RequestPart("myfile") MultipartFile file,
@@ -116,9 +120,12 @@ public class QuizRestController {
 
         surveySvc.createAttempt(newAttempt, answeredSurveyList);
 
+        String toEmail = userSvc.getUserById(sessId).get().getEmail();
+
+        emailSvc.sendEmail(toEmail);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(newAttempt);
     }
-
 
     private List<Question> createQuestionsFromCSV(List<CsvQuestionDto> csvQuestions, String surveyId) {
         return csvQuestions.stream()

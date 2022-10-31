@@ -31,6 +31,7 @@ const appRoutes : Routes = [
   {path: 'questsearch/result', component: SurveySearchResultComponent},
   {path: 'questsearch/:userId', component: SurveySearchComponent},
   {path: 'questparticipate/:userId', component: QuestionairesParticipateComponent},
+  {path: 'questresults/:userId', component: SurveyResultResultComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 

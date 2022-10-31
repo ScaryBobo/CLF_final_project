@@ -4,3 +4,20 @@
     padding: 10px;
     background-color: #fff;
 }
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    height: 50px;
+    width: 350px;
+}
+
+img {
+    padding: 30px;
+  }

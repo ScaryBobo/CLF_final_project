@@ -36,6 +36,8 @@ public class ChartRestController {
 
     @GetMapping (path = "/result/{surveyId}")
     public ResponseEntity<Map<String, String>> getResultImage (@PathVariable String surveyId) throws URISyntaxException {
+        System.out.println(">>> surveyID called is " + surveyId);
+
         Map<String,String> questionToImageUrl = new HashMap<>();
 
         surveySvc.retrieveListOfChartInputs(surveyId).forEach(

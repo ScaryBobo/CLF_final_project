@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FileService } from '../file.service';
 import { AnsweredSurvey, Attempt, Question } from '../model';
@@ -30,7 +31,7 @@ export class QuestionairesParticipateComponent implements OnInit {
 
   isQuizCompleted : boolean = false;
 
-  constructor(private userSvc : UserService, private fileSvc : FileService) { }
+  constructor(private userSvc : UserService, private fileSvc : FileService, private router : Router) { }
 
   ngOnInit(): void {
     this.email = this.userSvc.sessId;
@@ -84,7 +85,8 @@ export class QuestionairesParticipateComponent implements OnInit {
     console.log(">>> final payload sent: ", this.fileSvc.attemptSubmit);
     this.fileSvc.createAttempt(this.fileSvc.attemptSubmit, this.userSvc.sessId).subscribe(data => {
       alert ("Attempt submitted")
-      console.log(">>>>> data ", data)
+      console.log(">>>>> data ", data);
+      this.router.navigate(['/questresults', this.userSvc.sessId]);
 
     }, error => {
       alert ("Attempt not submitted")

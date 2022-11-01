@@ -1,6 +1,8 @@
 package project_backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project_backend.model.ChartImageInputs;
@@ -20,6 +22,7 @@ public class SurveyService {
     @Autowired
     private SurveyRepository surveyRepo;
 
+    @CacheEvict(value = "surveys", allEntries = true)
     @Transactional(rollbackFor = {SQLException.class})
     public void createSurvey(Survey survey) {
         surveyRepo.insertSurvey(survey.getUserId(), survey.getSurveyTitle(), survey.getSurveyId());
@@ -30,8 +33,9 @@ public class SurveyService {
                     answer.getAnswerId(), answer.getAnswerText(), answer.getQuestionId()));
         }
     }
-    
+    @Cacheable ("surveys")
     public List<Survey> getSurvey(String userId){
+        System.out.println("getting list of surveys is called");
         List<Survey> surveyList = surveyRepo.getListOfSurveyByUser(userId);
         for (Survey survey : surveyList){
             survey.setQuestions(surveyRepo.getListOfQuestionsBySurvey(survey.getSurveyId()));
@@ -43,7 +47,7 @@ public class SurveyService {
         
         return surveyList;
     }
-
+    @Cacheable ("questions")
     public List<Question> retrieveQuestionListBySurveyId(String surveyId){
         Survey newSurvey = Survey.builder().questions(surveyRepo.getListOfQuestionsBySurvey(surveyId)).build();
         for (Question question : newSurvey.getQuestions()){
@@ -52,6 +56,7 @@ public class SurveyService {
         List<Question> questionList = newSurvey.getQuestions();
         return questionList;
     }
+    @CacheEvict(value = "attempts", allEntries = true)
     @Transactional(rollbackFor = {SQLException.class})
     public void  createAttempt (Attempt attempt, List<AnsweredSurvey> answeredSurveys ){
 

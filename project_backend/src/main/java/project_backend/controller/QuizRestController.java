@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import project_backend.model.CsvQuestionDto;
 import project_backend.model.attemptMapper.AttemptPayloadWrapper;
 import project_backend.model.questionnaire.*;
-import project_backend.repository.QuestionRepository;
 import project_backend.service.EmailService;
 import project_backend.service.SurveyService;
 import project_backend.service.UserService;
@@ -30,8 +29,7 @@ public class QuizRestController {
 
     private Logger logger = Logger.getLogger(QuizRestController.class.getName());
 
-    @Autowired
-    private QuestionRepository quizRepo;
+
 
     @Autowired
     private SurveyService surveySvc;

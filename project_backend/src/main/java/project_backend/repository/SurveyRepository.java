@@ -1,6 +1,7 @@
 package project_backend.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import project_backend.mapper.*;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class SurveyRepository implements SurveyDAL{
     @Autowired
     private JdbcTemplate template;
+
+    @Autowired
+    RedisTemplate redisTemplate;
     
     //SURVEY CREATION
     private static final String SQL_INSERT_SURVEY = "Insert into survey (user_id, survey_title, survey_id) values (?,?,?)";

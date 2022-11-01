@@ -31,6 +31,11 @@ export class AppComponent {
     this.router.navigate(['/questsearch', this.userSvc.sessId]);
   }
 
+  logout(){
+    this.userSvc.sessId =''
+    this.router.navigate(['/']);
+  }
+
 
 
 }

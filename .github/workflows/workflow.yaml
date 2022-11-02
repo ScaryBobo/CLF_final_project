@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - 'release'
-    jobs:
-      build:
-        name: Build DIST
-        run:
-          working-directory: project_backend
-        runs-on: ubuntu-latest
-        steps:
+jobs:
+  build:
+    name: Build DIST
+    run:
+      working-directory: project_backend
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Use Node 12.x

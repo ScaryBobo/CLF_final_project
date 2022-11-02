@@ -28,7 +28,6 @@ jobs:
         with:
           name: deploy_dist
           path: 'project_frontend/dist'
-
   build:
     needs: build
     runs-on: ubuntu-latest

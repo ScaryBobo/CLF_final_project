@@ -28,7 +28,7 @@ jobs:
         with:
           name: deploy_dist
           path: 'project_frontend/dist'
-  deploy_to_heroku:
+  deploy:
     needs: build
     runs-on: ubuntu-latest
     defaults:

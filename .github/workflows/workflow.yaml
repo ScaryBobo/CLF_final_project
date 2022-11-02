@@ -27,4 +27,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: deploy_dist
-          path: 'project_frontend/dist'
+          path: '/dist'

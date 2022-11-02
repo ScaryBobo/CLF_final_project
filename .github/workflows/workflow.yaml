@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Build
-        run: ng build
+        run: npm run build:ci
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v1

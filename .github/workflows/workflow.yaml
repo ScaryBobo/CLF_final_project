@@ -3,11 +3,12 @@ on:
   push:
     branches: 
     - 'release'
-    paths: 
-    - 'project_backend/**'
+    
 jobs:
   build:
     name: Build DIST
+    paths: 
+    - 'project_backend/**'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

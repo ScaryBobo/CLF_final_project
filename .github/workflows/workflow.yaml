@@ -1,3 +1,4 @@
+name: Deploy to heroku
 on:
   push:
     branches:

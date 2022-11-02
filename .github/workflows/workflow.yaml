@@ -1,8 +1,10 @@
 name: Deploy to heroku
 on:
   push:
-    branches: 'release'
-    paths: 'project_backend/**'
+    branches: 
+    - 'release'
+    paths: 
+    - 'project_backend/**'
 jobs:
   build:
     name: Build DIST

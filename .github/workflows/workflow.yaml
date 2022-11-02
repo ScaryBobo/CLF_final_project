@@ -1,30 +1,18 @@
-name: Deployment
+name: Deploy to heroku
 on:
   push:
     branches: 
     - 'release'
-    
 jobs:
-  build:
-    name: Build DIST
+  deploy_to_heroku:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 'project_frontend'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Use Node 16.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-      - name: Install dependencies
-        run: npm i
-      - name: Build
-        run: npm run build
-      - name: Archive build
-        if: success()
-        uses: actions/upload-artifact@v1
-        with:
-          name: deploy_dist
-          path: 'project_frontend'
+    steps: 
+     - name: Checkout
+       uses: actions/checkout@v2
+     - name: deploy to heroku 
+       uses: akhileshns/heroku-deploy@v3.12.12
+       with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: leslie-survey
+          heroku_email: "leslielowgy@gmail.com"
+          appdir: "project_backend"

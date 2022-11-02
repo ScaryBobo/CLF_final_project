@@ -28,8 +28,8 @@ jobs:
         with:
           name: deploy_dist
           path: 'project_frontend/dist'
-          
-  deploy:
+
+  build:
     needs: build
     runs-on: ubuntu-latest
     defaults:
@@ -48,4 +48,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: leslie-survey
           heroku_email: "leslielowgy@gmail.com"
-          branch: ${{github.ref_name}}
+          appdir: "project_backend"

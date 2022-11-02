@@ -22,6 +22,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChangeBgDirective } from './change-bg.directive';
 
 import { SurveyResultResultComponent } from './survey-result-result/survey-result-result.component';
+import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes : Routes = [
   {path: '', component: UserLoginComponent},
@@ -53,7 +54,7 @@ const appRoutes : Routes = [
     BrowserAnimationsModule, MaterialModule, HttpClientModule, ReactiveFormsModule, FormsModule, 
     RouterModule.forRoot(appRoutes, {useHash: true}), FontAwesomeModule
   ],
-  providers: [UserService, FileService],
+  providers: [UserService, FileService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

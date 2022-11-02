@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { UserService } from './user.service';
 })
 export class AppComponent {
   
-  constructor(private userSvc: UserService, private router: Router){}
+  constructor(private userSvc: UserService, private router: Router, private cookies : CookieService){}
 
   login(){
     this.router.navigate(['/']);
@@ -31,8 +32,9 @@ export class AppComponent {
     this.router.navigate(['/questsearch', this.userSvc.sessId]);
   }
 
-  logout(){
-    this.userSvc.sessId =''
+  async logout(){
+    this.userSvc.sessId ='';
+    await this.cookies.deleteAll();
     this.router.navigate(['/']);
   }
 

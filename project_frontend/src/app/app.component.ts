@@ -10,6 +10,9 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AppComponent {
   
+  
+ 
+
   constructor(private userSvc: UserService, private router: Router, private cookies : CookieService){}
 
   login(){
@@ -21,6 +24,7 @@ export class AppComponent {
   }
 
   myQuest(){
+    
     this.router.navigate(['/myquest', this.userSvc.sessId]);
   }
 
@@ -29,6 +33,7 @@ export class AppComponent {
   }
 
   searchQuest(){
+
     this.router.navigate(['/questsearch', this.userSvc.sessId]);
   }
 

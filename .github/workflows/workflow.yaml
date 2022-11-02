@@ -28,3 +28,23 @@ jobs:
         with:
           name: deploy_dist
           path: 'project_frontend/dist'
+  deploy_to_heroku:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 'project_backend'
+    steps: 
+     - name: Checkout
+       uses: actions/checkout@v2
+    - uses: actions/download-artifact@v3
+      with:
+        name: deploy_dist
+        path: 'src/main/resources/static'
+     - name: deploy to heroku 
+       uses: akhileshns/heroku-deploy@v3.12.12
+       with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: leslie-survey
+          heroku_email: "leslielowgy@gmail.com"
+          branch: ${{github.ref_name}}

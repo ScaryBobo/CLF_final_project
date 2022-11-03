@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
 })
 export class QuestionairesSavedComponent implements OnInit, OnDestroy {
 
-  retrievedSurvey !: Survey[]
+  retrievedSurvey : Survey[] = []
   subscription !: Subscription
 
   constructor(private fileSvc: FileService, private userSvc: UserService) { }

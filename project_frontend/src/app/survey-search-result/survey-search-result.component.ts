@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class SurveySearchResultComponent implements OnInit, OnDestroy {
 
   subscription !: Subscription
-  retrievedSurvey !: Survey[]
+  retrievedSurvey : Survey[] = []
   email !: string 
   surveyId !: string 
 

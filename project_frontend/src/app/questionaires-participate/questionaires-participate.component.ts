@@ -14,7 +14,7 @@ export class QuestionairesParticipateComponent implements OnInit {
   progress : string = "0";
   email !: string
   subscription !: Subscription
-  questionList !: Question[]
+  questionList : Question[] = []
   currentQuestion : number = 0;
   currentIndex !: number
 

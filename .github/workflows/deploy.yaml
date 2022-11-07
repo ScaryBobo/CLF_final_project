@@ -3,15 +3,15 @@ on:
   push:
     branches:
     - 'release'
-    
+
+
 jobs:
-  job1:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: 'project_frontend'
-  steps:
+    steps:
     - name: Checkout Angular code
       uses: actions/checkout@v2
     - name: Setup node-version
@@ -28,18 +28,3 @@ jobs:
       run: rm -rf ../project_backend/src/main/resources/static/*
     - name: Copying files to server
       run : cp -r './dist/project_frontend/' '../project_backend/src/main/resources/static'
-  # job2:
-  #   name: spring build
-  #   needs: job1
-  #   steps: 
-  #   - name: Checkout
-  #     uses: actions/checkout@v2
-  #   - name: deploy to heroku 
-  #     uses: akhileshns/heroku-deploy@v3.12.12
-  #     with:
-  #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #       heroku_app_name: leslie-survey
-  #       heroku_email: "leslielowgy@gmail.com"
-  #       appdir: "project_backend"
-
-    

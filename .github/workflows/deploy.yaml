@@ -30,16 +30,16 @@ jobs:
         run : cp -r './dist/fpangular/' '../FPServer/src/main/resources/static'
   job2:
     needs: job1
-      runs-on: ubuntu-latest
-      steps: 
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: deploy to heroku 
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-            heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: leslie-survey
-            heroku_email: "leslielowgy@gmail.com"
-            appdir: "project_backend"
+    runs-on: ubuntu-latest
+    steps: 
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: deploy to heroku 
+      uses: akhileshns/heroku-deploy@v3.12.12
+       with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: leslie-survey
+          heroku_email: "leslielowgy@gmail.com"
+          appdir: "project_backend"
 
     

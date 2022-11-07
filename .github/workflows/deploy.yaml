@@ -28,8 +28,6 @@ jobs:
       run: rm -rf ../project_backend/src/main/resources/static/*
     - name: Copying files to server
       run : cp -r './dist/project_frontend/' '../project_backend/src/main/resources/static'
-    - name: Checkout
-       uses: actions/checkout@v2
      - name: deploy to heroku 
        uses: akhileshns/heroku-deploy@v3.12.12
        with:

@@ -32,15 +32,15 @@ jobs:
   job2:
     name: spring build
     needs: job1
-  steps: 
-  - name: Checkout
-    uses: actions/checkout@v2
-  - name: deploy to heroku 
-    uses: akhileshns/heroku-deploy@v3.12.12
-    with:
-      heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-      heroku_app_name: leslie-survey
-      heroku_email: "leslielowgy@gmail.com"
-      appdir: "project_backend"
+    steps: 
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: deploy to heroku 
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: leslie-survey
+        heroku_email: "leslielowgy@gmail.com"
+        appdir: "project_backend"
 
     

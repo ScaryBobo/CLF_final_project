@@ -31,7 +31,7 @@ jobs:
       run : cp -r './dist/fpangular/' '../FPServer/src/main/resources/static'
   job2:
     name: spring build
-  needs: job1
+    needs: job1
   steps: 
   - name: Checkout
     uses: actions/checkout@v2

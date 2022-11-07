@@ -6,6 +6,7 @@ on:
     
 jobs:
   job1:
+    name: angular build
     build:
       runs-on: ubuntu-latest
       defaults:
@@ -29,6 +30,7 @@ jobs:
       - name: Copying files to server
         run : cp -r './dist/fpangular/' '../FPServer/src/main/resources/static'
   job2:
+    name: spring build
     needs: job1
     runs-on: ubuntu-latest
     steps: 

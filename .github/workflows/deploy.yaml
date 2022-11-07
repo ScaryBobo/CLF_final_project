@@ -25,9 +25,9 @@ jobs:
     - name: NPM build
       run: npm run build
     - name: Remove existing DIST files in server (if any)
-      run: rm -rf ../FPServer/src/main/resources/static/*
+      run: rm -rf ../project_backend/src/main/resources/static/*
     - name: Copying files to server
-      run : cp -r './dist/fpangular/' '../FPServer/src/main/resources/static'
+      run : cp -r './dist/project_frontend/' '../project_backend/src/main/resources/static'
   # job2:
   #   name: spring build
   #   needs: job1

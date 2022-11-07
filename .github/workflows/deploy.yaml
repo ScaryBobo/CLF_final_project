@@ -12,22 +12,22 @@ jobs:
       run:
         working-directory: 'project_frontend'
   steps:
-  - name: Checkout Angular code
-    uses: actions/checkout@v2
-  - name: Setup node-version
-    uses: actions/setup-node@v2
-    with:
-      node-version: '16.x'
-  - name: NPM Install
-    run: npm install --legacy-peer-deps
-  - name: NPM install Angular
-    run: npm install -g --legacy-peer-deps @angular/cli > /dev/null
-  - name: NPM build
-    run: npm run build
-  - name: Remove existing DIST files in server (if any)
-    run: rm -rf ../FPServer/src/main/resources/static/*
-  - name: Copying files to server
-    run : cp -r './dist/fpangular/' '../FPServer/src/main/resources/static'
+    - name: Checkout Angular code
+      uses: actions/checkout@v2
+    - name: Setup node-version
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+    - name: NPM Install
+      run: npm install --legacy-peer-deps
+    - name: NPM install Angular
+      run: npm install -g --legacy-peer-deps @angular/cli > /dev/null
+    - name: NPM build
+      run: npm run build
+    - name: Remove existing DIST files in server (if any)
+      run: rm -rf ../FPServer/src/main/resources/static/*
+    - name: Copying files to server
+      run : cp -r './dist/fpangular/' '../FPServer/src/main/resources/static'
   # job2:
   #   name: spring build
   #   needs: job1

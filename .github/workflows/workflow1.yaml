@@ -1,8 +1,7 @@
-name: deploy to heroku
+name: angular 
 on:
-  push:
-    branches:
-    - 'release'
+  workflow_call:
+
 
 
 jobs:
@@ -28,10 +27,3 @@ jobs:
       run: rm -rf ../project_backend/src/main/resources/static/*
     - name: Copying files to server
       run : cp -r './dist/project_frontend/' '../project_backend/src/main/resources/static'
-     - name: deploy to heroku 
-       uses: akhileshns/heroku-deploy@v3.12.12
-       with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: leslie-survey
-          heroku_email: "leslielowgy@gmail.com"
-          appdir: "project_backend"

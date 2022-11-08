@@ -61,8 +61,10 @@ public class LoginRestController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<String> generateToken(@RequestBody String payload) throws Exception {
+        System.out.println(">>>> payload" + payload);
         Gson gson = new Gson();
         User user = gson.fromJson(payload, User.class);
+
         boolean authUser = userSvc.authenticateLogin(user);
 
         if (authUser){

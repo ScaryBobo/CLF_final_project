@@ -38,7 +38,7 @@ export class UserService {
     .set('Content-type', 'application/json')
     .set('Accept', 'application/json')
 
-    return this.http.post('/login', user, {headers});
+    return this.http.post('/authenticate', user, {headers});
   }
 
 }

@@ -1,6 +1,8 @@
 name: Deploy to heroku
 on:
-  workflow_call:
+  push:
+    branches:
+    - 'release'
 jobs:
   deploy_to_heroku:
     runs-on: ubuntu-latest

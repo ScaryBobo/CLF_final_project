@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FileService } from '../file.service';
+
 import { Survey } from '../model';
-import { UserService } from '../user.service';
+import { UserService } from '../service/user.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { FileService } from '../service/file.service';
 
 @Component({
   selector: 'app-survey-search-result',

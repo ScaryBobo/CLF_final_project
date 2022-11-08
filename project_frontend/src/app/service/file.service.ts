@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { AnsweredSurvey, Attempt, Question, Survey } from './model';
-import { QuestionairesSavedComponent } from './questionaires-saved/questionaires-saved.component';
+import { AnsweredSurvey, Attempt, Question, Survey } from '../model';
+
 
 
 @Injectable({

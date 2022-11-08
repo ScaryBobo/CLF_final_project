@@ -3,8 +3,9 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize, Subscription } from 'rxjs';
 import * as XLSX from 'xlsx';
-import { FileService } from '../file.service';
-import { UserService } from '../user.service';
+import { FileService } from '../service/file.service';
+
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-questionaires-create',

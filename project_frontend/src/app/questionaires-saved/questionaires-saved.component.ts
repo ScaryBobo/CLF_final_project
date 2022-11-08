@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FileService } from '../file.service';
+
 import { Survey } from '../model';
-import { UserService } from '../user.service';
+import { FileService } from '../service/file.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-questionaires-saved',

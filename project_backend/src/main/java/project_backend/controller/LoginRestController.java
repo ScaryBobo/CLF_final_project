@@ -60,15 +60,20 @@ public class LoginRestController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<String> generateToken(@RequestBody String payload) throws Exception {
+    public ResponseEntity<User> generateToken(@RequestBody String payload) throws Exception {
         System.out.println(">>>> payload" + payload);
         Gson gson = new Gson();
         User user = gson.fromJson(payload, User.class);
 
+
         boolean authUser = userSvc.authenticateLogin(user);
 
         if (authUser){
-            return ResponseEntity.status(HttpStatus.OK).body(jwtUtil.generateToken(user.getEmail()));
+            String token = jwtUtil.generateToken(user.getEmail());
+            Optional <User> opt = userSvc.getUser(user);
+            opt.get().setToken(token);
+
+            return ResponseEntity.status(HttpStatus.OK).body(opt.get());
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }

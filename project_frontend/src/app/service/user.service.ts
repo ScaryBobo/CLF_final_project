@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Observable } from 'rxjs';
-import { User } from './model';
+import { User } from '../model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,12 +33,13 @@ export class UserService {
     return this.http.post('/createuser', user, {headers});
   }
 
-  authenticate (user: User) : Observable<any> {
+  authenticate (user: User) : Promise<any> {
     const headers = new HttpHeaders()
     .set('Content-type', 'application/json')
     .set('Accept', 'application/json')
 
-    return this.http.post('/authenticate', user, {headers});
+    return firstValueFrom(this.http.post('/authenticate', user, {headers}));
+    
   }
 
 }

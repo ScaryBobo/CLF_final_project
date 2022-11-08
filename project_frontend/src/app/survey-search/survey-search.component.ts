@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FileService } from '../file.service';
-import { UserService } from '../user.service';
+import { FileService } from '../service/file.service';
+
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-survey-search',

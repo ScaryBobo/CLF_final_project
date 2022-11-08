@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FileService } from '../file.service';
+
 import { AnsweredSurvey, Attempt, Question } from '../model';
-import { UserService } from '../user.service';
+import { FileService } from '../service/file.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-questionaires-participate',

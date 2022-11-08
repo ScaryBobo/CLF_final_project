@@ -39,6 +39,8 @@ export class AppComponent {
 
   async logout(){
     this.userSvc.sessId ='';
+    sessionStorage.clear();
+    localStorage.clear();
     await this.cookies.deleteAll();
     this.router.navigate(['/']);
   }

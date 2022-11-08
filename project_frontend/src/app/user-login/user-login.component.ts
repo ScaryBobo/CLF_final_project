@@ -35,7 +35,7 @@ export class UserLoginComponent implements OnInit {
       alert ("Login Successfully!");
       console.log("return>>>> : " , data);
       this.userSvc.sessId = data["userId"];
-      this.cookies.set("userId", data["userId"]);
+      this.cookies.set("userToken", data["token"]);
       console.log(">>> session id ",this.userSvc.sessId);
       this.router.navigate(['/myquest', this.userSvc.sessId]);
     }) .catch ( error  => {

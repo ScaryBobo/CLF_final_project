@@ -35,13 +35,6 @@ public class RedisConfig {
         redisStandaloneConfiguration.setPassword(redisPassword);
         redisStandaloneConfiguration.setPort(12122);
 
-
-//        JedisPoolConfig poolConfig = new JedisPoolConfig();
-//        poolConfig.setMaxTotal(128);
-//        poolConfig.setMaxIdle(128);
-//        poolConfig.setMinIdle(16);
-
-
         JedisClientConfiguration jedisClient = JedisClientConfiguration.builder()
                 .build();
 
@@ -49,10 +42,8 @@ public class RedisConfig {
                 = new JedisConnectionFactory(redisStandaloneConfiguration, jedisClient);
         jedisConFactory.afterPropertiesSet();
 
-
         return jedisConFactory;
     }
-
 
     @Bean
     public RedisTemplate<String, String> redisTemplate(){

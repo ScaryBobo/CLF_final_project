@@ -19,6 +19,8 @@ public class UserRepository {
     private static final String SQL_GET_USERID_BY_EMAIL = "select user_id from user where email=?";
     private static final String SQL_AUTH_USER = "select email, password from user where email =? and password =?";
     private static final String SQL_GET_USER = "select * from user where email =? and password =?";
+
+    private static final String SQL_GET_USER_BY_EMAIL = "select * from user where email=?";
     private static final String SQL_GET_EMAIL_BY_USERID = "select * from user where user_id=?";
 
     @Autowired
@@ -49,6 +51,10 @@ public class UserRepository {
         return Optional.of(result);
     }
 
+    public Optional<User> getUserByEmail (String email){
+        User result = template.queryForObject(SQL_GET_USER_BY_EMAIL, new LoginMapper(), email);
+        return Optional.of(result);
+    }
     public Optional<String> getUserIdByEmail (String email){
         final SqlRowSet result = template.queryForRowSet(SQL_GET_USERID_BY_EMAIL, email);
         if(!result.next()){

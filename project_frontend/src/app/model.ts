@@ -2,6 +2,7 @@ export interface User {
     userId ?: string
     email : string
     password: number
+    token ?: string
 }
 export interface Survey {
     surveyId : string

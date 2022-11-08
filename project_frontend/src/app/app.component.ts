@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './user.service';
+import { UserService } from './service/user.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -39,6 +39,8 @@ export class AppComponent {
 
   async logout(){
     this.userSvc.sessId ='';
+    sessionStorage.clear();
+    localStorage.clear();
     await this.cookies.deleteAll();
     this.router.navigate(['/']);
   }

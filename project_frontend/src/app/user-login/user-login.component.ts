@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../model';
-import { UserService } from '../user.service';
+import { UserService } from '../service/user.service';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -30,14 +30,16 @@ export class UserLoginComponent implements OnInit {
   onLogin(){
     console.log("form value >>>>>", this.loginForm.value);
     let user : User = this.loginForm.value as User;
-    this.userSvc.authenticate (user).subscribe(data => {
+    this.userSvc.authenticate (user)
+      .then(data => {
       alert ("Login Successfully!");
       console.log("return>>>> : " , data);
       this.userSvc.sessId = data["userId"];
-      this.cookies.set("userId", data["userId"]);
+      this.cookies.set("userToken", data["token"]);
       console.log(">>> session id ",this.userSvc.sessId);
       this.router.navigate(['/myquest', this.userSvc.sessId]);
-    }, error => {
+    }) .catch ( error  => {
+      console.log(">>> error", error)
       alert ("Email or password is incorrect");
     })
   }

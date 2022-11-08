@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import project_backend.model.User;
 import project_backend.service.UserService;
+import project_backend.util.JwtUtil;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -17,6 +20,11 @@ import java.util.logging.Logger;
 public class LoginRestController {
 
     private Logger logger = Logger.getLogger(LoginRestController.class.getName());
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 
     @Autowired
     private UserService userSvc;
@@ -50,4 +58,24 @@ public class LoginRestController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<User> generateToken(@RequestBody String payload) throws Exception {
+        System.out.println(">>>> payload" + payload);
+        Gson gson = new Gson();
+        User user = gson.fromJson(payload, User.class);
+
+
+        boolean authUser = userSvc.authenticateLogin(user);
+
+        if (authUser){
+            String token = jwtUtil.generateToken(user.getEmail());
+            Optional <User> opt = userSvc.getUser(user);
+            opt.get().setToken(token);
+
+            return ResponseEntity.status(HttpStatus.OK).body(opt.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
 }

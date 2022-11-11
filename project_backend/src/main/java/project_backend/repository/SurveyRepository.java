@@ -31,7 +31,7 @@ public class SurveyRepository implements SurveyDAL{
     private static final String SQL_CHECK_IF_ATTEMPT_PRESENT = "select * from attempt where attempt_id =?";
     
     //RESULTS CREATION
-    private static final String SQL_GET_LIST_OF_SURVEYS_BY_USER="Select * from survey where user_id = ?";
+    private static final String SQL_GET_LIST_OF_SURVEYS_BY_USER="Select * from survey_view where user_id = ?";
     private static final String SQL_GET_LIST_OF_QUESTIONS_BY_SURVEY = "Select * from question where survey_id =?";
     private static final String SQL_GET_LIST_OF_ANSWERS_BY_QUESTION = "Select * from answer where question_id =?";
 
@@ -45,9 +45,8 @@ public class SurveyRepository implements SurveyDAL{
 
 
     //Deletion
-    private static final String SQL_DELETE_SURVEY_BY_USER = "Delete from survey where user_id =?";
-    private static final String SQL_DELETE_QUESTIONS_BY_SURVEY = "Delete from question where survey_id =?";
-    private static final String SQL_DELETE_ANSWERS_BY_QUESTIONS = "Delete from answer where question_id IN (?,?, ...);";
+    private static final String SQL_SET_DELETE_COLUMN = "update survey set deleted=TRUE where survey_id =?";
+
     @Override
     public boolean insertSurvey(String userId, String surveyTitle, String surveyId) {
         final int rowCount = template.update(SQL_INSERT_SURVEY, userId, surveyTitle, surveyId);
@@ -98,20 +97,12 @@ public class SurveyRepository implements SurveyDAL{
     }
 
     @Override
-    public boolean deleteSurveyByUser(String userId) {
-        
-        return false;
+    public boolean deleteSurveyBySurveyId(String surveyId) {
+        final int rowCount = template.update(SQL_SET_DELETE_COLUMN, surveyId);
+        return rowCount > 0;
     }
 
-    @Override
-    public boolean deleteQuestionsBySurvey(String surveyId) {
-        return false;
-    }
 
-    @Override
-    public boolean deleteAnswersByQuestion(String questionId) {
-        return false;
-    }
 
     @Override
     public List<Attempt> getListAttemptsBySurvey(String surveyId) {

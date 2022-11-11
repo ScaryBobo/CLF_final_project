@@ -25,20 +25,20 @@ export class AppComponent {
 
   myQuest(){
     
-    this.router.navigate(['/myquest', this.userSvc.sessId]);
+    this.router.navigate(['/myquest', this.cookies.get('userId')]);
   }
 
   createQuest(){
-    this.router.navigate(['/questcreate', this.userSvc.sessId]);
+    this.router.navigate(['/questcreate', this.cookies.get('userId')]);
   }
 
   searchQuest(){
 
-    this.router.navigate(['/questsearch', this.userSvc.sessId]);
+    this.router.navigate(['/questsearch', this.cookies.get('userId')]);
   }
 
   async logout(){
-    this.userSvc.sessId ='';
+    
     sessionStorage.clear();
     localStorage.clear();
     await this.cookies.deleteAll();

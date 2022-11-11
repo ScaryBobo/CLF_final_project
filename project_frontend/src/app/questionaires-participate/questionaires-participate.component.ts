@@ -37,12 +37,10 @@ export class QuestionairesParticipateComponent implements OnInit {
   ngOnInit(): void {
     this.email = this.userSvc.sessId;
     this.subscription = this.fileSvc.loadSurvey(this.fileSvc.surveyId).subscribe(x => {
-      console.log(">>>>> : ", x);
       this.questionList = x;
       this.getProgressPercent();
 
-    } );
-    console.log(">>>> question list: ", this.questionList);
+    });
   }
   
 
@@ -51,18 +49,11 @@ export class QuestionairesParticipateComponent implements OnInit {
     this.questionId = this.questionList[questionNo].questionId;
     this.answerId = optionId;
 
-    console.log(">>> questionId selected is:", this.questionId)
-    console.log(">>>> answerId selected is:", this.answerId)
-
     this.responses.questionId = this.questionId
     this.responses.answerId = this.answerId
-    console.log(">>> questionId stored is :", this.responses.questionId)
-    console.log( ">>> answerId stored is ", this.responses.answerId);
-
-
+    
     this.fileSvc.answeredObject.push({...this.responses})
-    console.log(">>> fileSvcAnsweredOBj:", this.fileSvc.answeredObject)
-
+    
     this.sessId = this.userSvc.sessId;
 
     this.surveyId = this.fileSvc.surveyId;
@@ -83,15 +74,11 @@ export class QuestionairesParticipateComponent implements OnInit {
 
   submitAttempt(){
     this.fileSvc.attemptSubmit.answeredSurveys = this.fileSvc.answeredObject;
-    console.log(">>> final payload sent: ", this.fileSvc.attemptSubmit);
     this.fileSvc.createAttempt(this.fileSvc.attemptSubmit, this.userSvc.sessId).subscribe(data => {
       alert ("Attempt submitted")
-      console.log(">>>>> data ", data);
       this.router.navigate(['/questresults', this.userSvc.sessId]);
-
     }, error => {
       alert ("Attempt not submitted")
-      console.log(">>>> error", error)
     })
   }
 
@@ -105,7 +92,7 @@ export class QuestionairesParticipateComponent implements OnInit {
   getProgressPercent(){
     this.currentIndex = this.currentQuestion + 1;
     this.progress = ((this.currentIndex/this.questionList.length)*100).toString();
-    console.log(">>> progress : " , this.progress)
+    
     return this.progress;
   }
 

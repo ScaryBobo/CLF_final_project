@@ -41,10 +41,8 @@ constructor(private fileSvc : FileService, private userSvc: UserService, private
     this.fileSvc.upload(myFile, this.userSvc.sessId, title )
       .then(result => {
         alert("File has uploaded successfully")
-        console.info('>>> result: ', result)
       }) .catch(error => {
         alert("File is not uploaded")
-        console.error('>> error: ', error)
       })
   }
 

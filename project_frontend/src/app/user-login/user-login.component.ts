@@ -28,18 +28,16 @@ export class UserLoginComponent implements OnInit {
   }
 
   onLogin(){
-    console.log("form value >>>>>", this.loginForm.value);
     let user : User = this.loginForm.value as User;
     this.userSvc.authenticate (user)
       .then(data => {
       alert ("Login Successfully!");
       console.log("return>>>> : " , data);
       this.userSvc.sessId = data["userId"];
-      this.cookies.set("userToken", data["token"]);
-      console.log(">>> session id ",this.userSvc.sessId);
+      this.cookies.set(this.userSvc.sessId, data["token"]);
+      this.cookies.set('userId', this.userSvc.sessId);
       this.router.navigate(['/myquest', this.userSvc.sessId]);
     }) .catch ( error  => {
-      console.log(">>> error", error)
       alert ("Email or password is incorrect");
     })
   }

@@ -29,23 +29,18 @@ export class UserCreateComponent implements OnInit {
 
   
  onCreateUser(){
-    console.log(">>> new user: ", this.createUser.value);
     let user : User = this.createUser.value as User;
-    console.log(">>>> user Object:", user);
     this.userSvc.addUser(user).subscribe(data => {
       alert ("Account is successfully created");
       this.router.navigate(['/']);
     }, error => {
       alert("Account already exists");
-      console.log('already exist', error);
     });
   }
 
   openSnackBar (message : string, action : string) {
     let user : User = this.createUser.value as User;
     this.email = user.email;
-    console.log(">>>> email is: ", this.email);
-  
     this.userSvc.addUser(user).subscribe(data => {
       message = "User: " + this.email + " has been created";
     this.snackBar.open(message, action, {duration: 1500});

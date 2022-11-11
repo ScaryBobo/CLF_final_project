@@ -83,4 +83,8 @@ public class SurveyService {
         return surveyRepo.getListOfQuestionTextAnswerTextAndCountsBySurveyId(surveyId);
     }
 
+    public boolean deleteSurvey(String surveyId){
+        return surveyRepo.deleteSurveyBySurveyId(surveyId);
+    }
+
 }

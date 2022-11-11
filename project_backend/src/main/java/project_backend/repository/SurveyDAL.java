@@ -29,9 +29,8 @@ public interface SurveyDAL {
     Optional<Attempt> checkAttemptIdPresent (String attemptId);
 
     //Delete created survey
-    boolean deleteSurveyByUser(String userId);
-    boolean deleteQuestionsBySurvey (String surveyId);
-    boolean deleteAnswersByQuestion (String questionId);
+    boolean deleteSurveyBySurveyId(String surveyId);
+
 
     List<Attempt> getListAttemptsBySurvey (String surveyId);
     List<AnsweredSurvey> getListOfQuestionIdAndAnswerIdByAttempt (String attemptId);

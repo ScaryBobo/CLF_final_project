@@ -26,9 +26,8 @@ export class SurveySearchComponent implements OnInit {
   search(){
     let email = this.searchSurveyForm.value.email;
     this.fileSvc.email = email;
-    console.log(">>>> email: ", email);
+ 
     this.fileSvc.getSurveyByEmail(email).subscribe(data => {
-      console.log("return>>>> : " , data);
       this.router.navigate(['/questsearch/result']);
     }, error => {
       alert ("No surveys found from this user"); 

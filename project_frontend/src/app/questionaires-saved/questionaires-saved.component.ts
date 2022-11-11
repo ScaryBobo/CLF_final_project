@@ -15,6 +15,7 @@ export class QuestionairesSavedComponent implements OnInit, OnDestroy {
 
   retrievedSurvey : Survey[] = []
   subscription !: Subscription
+  surveyId !: string
 
   constructor(private fileSvc: FileService, private userSvc: UserService) { }
   ngOnDestroy(): void {
@@ -23,6 +24,16 @@ export class QuestionairesSavedComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
    this.subscription = this.fileSvc.getSurveyByUser(this.userSvc.sessId).subscribe(x => this.retrievedSurvey = x);
+  }
+
+  deleteSurvey(i : number){
+    this.surveyId = this.retrievedSurvey.at(i)?.surveyId!
+    this.fileSvc.deleteSurvey(this.surveyId).subscribe(x => {
+      alert ("Survey is deleted")
+      this.ngOnInit();
+    }, error => {
+      alert ("Error in deleting survey")
+    })
   }
 
 }

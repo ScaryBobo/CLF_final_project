@@ -14,7 +14,7 @@ export class UserService {
 
   // Using promises
   addNewUserToDatabase (user : User){
-    console.log(">>> UserService is called");
+    
     const headers = new HttpHeaders()
     .set('Content-type', 'application/json')
     .set('Accept', 'application/json')
@@ -26,7 +26,6 @@ export class UserService {
 
   //Using Observables
   addUser(user: User): Observable<any> {
-    console.log(">>> UserService is called");
     const headers = new HttpHeaders()
     .set('Content-type', 'application/json')
     .set('Accept', 'application/json')

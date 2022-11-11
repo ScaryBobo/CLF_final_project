@@ -11,14 +11,18 @@
                         <th>No.</th>
                         <th>Survey Title</th>
                         <th>Date Created</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr *ngFor="let survey of retrievedSurvey ;index as i">
+                    <tr *ngFor="let survey of retrievedSurvey ;let i = index">
                         <td>{{i+1}}</td>
                         <td>{{survey.surveyTitle}}</td>
                         <td>{{survey.dateCreated}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" (click)="deleteSurvey(i)">X</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

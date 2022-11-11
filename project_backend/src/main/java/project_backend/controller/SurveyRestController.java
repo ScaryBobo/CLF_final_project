@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 
 @RestController
 @RequestMapping(path = "/")
-public class QuizRestController {
+public class SurveyRestController {
 
-    private Logger logger = Logger.getLogger(QuizRestController.class.getName());
+    private Logger logger = Logger.getLogger(SurveyRestController.class.getName());
 
 
 
@@ -124,6 +124,17 @@ public class QuizRestController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newAttempt);
     }
+
+    @DeleteMapping (path = "/deletequiz", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteSurveyBySurveyId (@RequestParam String surveyId){
+        System.out.println(">>>>>> surveyId is " + surveyId);
+        if (surveySvc.deleteSurvey(surveyId)) {
+            return ResponseEntity.status(HttpStatus.OK).body("");
+        } else  {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
+        }
+    }
+
 
     private List<Question> createQuestionsFromCSV(List<CsvQuestionDto> csvQuestions, String surveyId) {
         return csvQuestions.stream()

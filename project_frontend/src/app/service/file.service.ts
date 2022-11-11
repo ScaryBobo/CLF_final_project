@@ -31,12 +31,10 @@ export class FileService {
   }
 
   getSurveyByUser(sessId: string): Observable<Survey[]> {
-    console.log("getting all surveys by userId");
     return this.http.get<Survey[]>(`/getquizz/${sessId}`);
   }
 
   getSurveyByEmail (email : string): Observable<Survey[]>{
-    console.log("getting surveys by email! >>> email: ", email);
     let params1 = new HttpParams()
       .set("email", email)
 
@@ -59,9 +57,17 @@ export class FileService {
   }
 
   getResults(surveyId : string) : Observable<Map<string, string>> {
-    console.log(">>> getting image urls for surveyId", surveyId);
     return this.http.get<Map<string, string>>(`/result/${surveyId}`);
+  }
 
+  deleteSurvey(surveyId : string): Observable<any>{
+    const headers = new HttpHeaders()
+    .set('Content-type', 'application/json')
+    .set('Accept', 'application/json');
+    let params = new HttpParams()
+      .set("surveyId", surveyId);
+
+    return this.http.delete<any>('/deletequiz', {headers: headers, params: params});
   }
 
 

@@ -29,14 +29,12 @@ export class SurveySearchResultComponent implements OnInit, OnDestroy {
 
   attempt(i : number){
     this.surveyId = this.retrievedSurvey.at(i)!.surveyId;
-    console.log(">>> surveyId selected is ", this.surveyId);
+    
     this.fileSvc.surveyId = this.surveyId;
     this.fileSvc.loadSurvey(this.surveyId).subscribe(data => {
-      console.log(">>> loaded survey:", data);
       alert ("Survey successfully loaded")
       this.router.navigate(['/questparticipate', this.userSvc.sessId]);
     }, error => {
-      console.log (">>> error : ", error);
       alert( "Survey is not loaded");
     })
   }

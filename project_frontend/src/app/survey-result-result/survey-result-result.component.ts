@@ -20,17 +20,11 @@ export class SurveyResultResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileSvc.getResults(this.fileSvc.surveyId).subscribe(x => {
-      this.urlMap = x;
-      console.log(this.urlMap)});
-    
+      this.urlMap = x});
   }
 
   display(){
     this.displayGraphs = true;
   }
-
-  
-
-
 
 }

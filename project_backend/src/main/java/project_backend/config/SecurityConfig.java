@@ -15,6 +15,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import project_backend.filter.JwtFilter;
 import project_backend.service.CustomUserDetailsService;
 
@@ -32,8 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
 
@@ -43,16 +45,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        web
-                .ignoring()
-                .antMatchers("./resources/static/**");
-    }
-    @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable().authorizeRequests().antMatchers("/authenticate", "/createuser","/",
-                        "/3rdpartylicenses.txt", "/favicon.ico", "/index.html", "/main.b55ec185bdcce683.js",
+                        "/3rdpartylicenses.txt", "/favicon.ico", "/index.html", "/main.37c3559ed1c3d7d7.js",
                         "/polyfills.afa529e99603c1a9.js", "/runtime.ab0bb4c5c5010a48.js", "/styles.64149f24ab077b0a.css", "/assets/**")
                 .permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
@@ -61,6 +57,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
-
 }
+
+
+
+
+
+
+
+

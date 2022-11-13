@@ -14,6 +14,7 @@ export class AppComponent {
  
 
   constructor(private userSvc: UserService, private router: Router, private cookies : CookieService){}
+  
 
   login(){
     this.router.navigate(['/']);

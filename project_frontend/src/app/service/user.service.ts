@@ -38,7 +38,5 @@ export class UserService {
     .set('Accept', 'application/json')
 
     return firstValueFrom(this.http.post('/authenticate', user, {headers}));
-    
   }
-
 }

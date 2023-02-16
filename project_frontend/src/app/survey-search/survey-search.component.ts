@@ -20,7 +20,6 @@ export class SurveySearchComponent implements OnInit {
     this.searchSurveyForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     })
-
   }
 
   search(){
@@ -32,7 +31,6 @@ export class SurveySearchComponent implements OnInit {
     }, error => {
       alert ("No surveys found from this user"); 
     });
-
   }
 
 }

@@ -8,9 +8,7 @@ import { UserService } from './user.service';
   providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
-
-
-
+  
   constructor(private cookieSvc: CookieService, private userSvc: UserService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

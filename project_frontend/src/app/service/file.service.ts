@@ -13,12 +13,10 @@ export class FileService {
   email !: string
   surveyId !: string
 
-
   attemptSubmit : Attempt = {}
   answeredObject : AnsweredSurvey[] = [] 
 
   constructor(private http: HttpClient) { }
-
 
   upload(file: File, sessId: string, title: string) {
     const data = new FormData()
@@ -69,8 +67,4 @@ export class FileService {
 
     return this.http.delete<any>('/deletequiz', {headers: headers, params: params});
   }
-
-
-
-
 }

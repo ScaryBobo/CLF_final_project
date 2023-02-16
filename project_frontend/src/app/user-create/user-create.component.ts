@@ -24,10 +24,8 @@ export class UserCreateComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     })
-
   }
 
-  
  onCreateUser(){
     let user : User = this.createUser.value as User;
     this.userSvc.addUser(user).subscribe(data => {
@@ -49,10 +47,5 @@ export class UserCreateComponent implements OnInit {
       message = "User: " + this.email + " already exists";
       this.snackBar.open(message, action, {duration: 1500});
     });
-
-
-
   }
-
-
 }

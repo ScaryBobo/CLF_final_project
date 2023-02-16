@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import project_backend.model.User;
 import project_backend.service.UserService;
 import project_backend.util.JwtUtil;
@@ -24,7 +26,6 @@ public class LoginRestController {
     private JwtUtil jwtUtil;
     @Autowired
     private AuthenticationManager authenticationManager;
-
 
     @Autowired
     private UserService userSvc;

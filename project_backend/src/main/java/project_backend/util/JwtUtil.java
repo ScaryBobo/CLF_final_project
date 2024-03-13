@@ -6,6 +6,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +17,7 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 
-    private String secret = "leslie";
+    private static final String secret = "leslie";
 
     public String extractUserEmail(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -29,7 +32,10 @@ public class JwtUtil {
         return claimsResolver.apply(claims);
     }
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+//        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+        SecretKey secretKey = createSecretKey(secret);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
+
     }
 
     private Boolean isTokenExpired(String token) {
@@ -51,5 +57,10 @@ public class JwtUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String email = extractUserEmail(token);
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private static SecretKey createSecretKey(String secret) {
+        byte[] decodedKey = Base64.getDecoder().decode(secret);
+        return new SecretKeySpec(decodedKey, 0, decodedKey.length, "HmacSHA256");
     }
 }

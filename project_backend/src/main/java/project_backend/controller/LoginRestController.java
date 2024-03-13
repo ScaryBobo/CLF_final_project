@@ -32,7 +32,7 @@ public class LoginRestController {
 
     @PostMapping(path = "/createuser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createNewUser(@RequestBody String payload){
-        logger.info(">>>> login payload is %s".formatted(payload));
+        logger.info(">>>> login payload is %s".format(payload));
         Gson gson = new Gson();
         User user = gson.fromJson(payload, User.class);
         System.out.println(">>>>> after mapping object: " + user.toString());
@@ -49,7 +49,7 @@ public class LoginRestController {
 
     @PostMapping (path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> loginUser(@RequestBody String payload){
-        logger.info(">>>> login payload is %s".formatted(payload));
+        logger.info(">>>> login payload is %s".format(payload));
         Gson gson = new Gson();
         User user = gson.fromJson(payload, User.class);
         boolean authUser = userSvc.authenticateLogin(user);

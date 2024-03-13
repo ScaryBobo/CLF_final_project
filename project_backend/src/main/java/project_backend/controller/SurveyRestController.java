@@ -22,6 +22,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/")
@@ -112,7 +113,7 @@ public class SurveyRestController {
                             .attemptId(newAttempt.getAttemptId())
                             .questionId(x.getQuestionId())
                             .answerId(x.getAnswerId()).build();
-                }).toList();
+                }).collect(Collectors.toList());
         System.out.println(">>>> attempt: " + newAttempt);
         System.out.println(">>> List of answered survey:" + answeredSurveyList);
 
@@ -166,7 +167,7 @@ public class SurveyRestController {
                                                 .answerId(constructUUID())
                                                 .build()
                                         ))).build();
-                }).toList();
+                }).collect(Collectors.toList());
     }
     private String constructUUID(){return UUID.randomUUID().toString();}
 }
